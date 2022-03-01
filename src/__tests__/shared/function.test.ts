@@ -110,7 +110,7 @@ describe.each([
   [1, 2, 3],
   [2, 2, 4],
 ])("🎠@function/sum.each For Array #%# : (%i, %i) => %i", (a, b, expected) => {
-  test(`@sum/(${a}, ${b}) => ${expected}`, () => {
+  test(`@sum.each/(${a}, ${b}) => ${expected}`, () => {
     expect(sum(a, b)).toBe(expected);
   });
 });
@@ -123,8 +123,26 @@ describe.each([
 ])(
   "🎠@function/sum.each For Object #$# : ($a, $b) => $expected",
   ({ a, b, expected }) => {
-    test(`@sum/(${a}, ${b}) => ${expected}`, () => {
+    test(`@sum.each/(${a}, ${b}) => ${expected}`, () => {
       expect(sum(a, b)).toBe(expected);
     });
   }
 );
+
+// .only
+// 모든 테스트 케이스를 테스트하던 중 하나의 테스트 케이스에서 문제가 생긴 경우
+// describe.only 혹은 test.only 를 사용해주면 해당 테스트 케이스만 테스트해줍니다.
+// .only가 여러 개 쓰인 경우 .only가 붙은 모든 함수를 실행시킵니다.
+describe.only("📁@function/sum.only", () => {
+  test("@sum.only : (1, 2) => 3", () => {
+    expect(sum(1, 2)).toBe(3);
+  });
+
+  test("@sum.only : (2, 3) => 4", () => {
+    expect(sum(2, 3)).toBe(4);
+  });
+});
+
+test.only("@function/sum.only : (2, 3) => 4", () => {
+  expect(sum(2, 3)).toBe(4);
+});
