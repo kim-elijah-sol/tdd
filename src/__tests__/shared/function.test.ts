@@ -1,4 +1,4 @@
-import { sum, isNumber } from "../../shared/function";
+import { sum, isNumber, temperature } from "../../shared/function";
 
 // 호출 시점의 날짜를 반환해주는 함수
 function getDate() {
@@ -71,5 +71,20 @@ test("@function/sum", () => {
 
 // .toBeTruthy() : "matcher"의 "검증 대상" 값이 True인지 확인할 때 사용합니다.
 test("@function/isNumber", () => {
-  expect(isNumber(1)).toBeTruthy();
+  expect(isNumber("13.25")).toBeTruthy();
+});
+
+// describe : 여러 테스트를 그룹화하는 "Block"을 생성합니다.
+describe("  @function/temperature", () => {
+  test("@temperature/getC", () => {
+    expect(temperature.getC(1)).toBe(-17);
+  });
+
+  test("temperature/getF", () => {
+    expect(temperature.getF(30)).toBe(86);
+  });
+
+  test("temperature/equalFandC", () => {
+    expect(temperature.equalFandC(86, 30)).toBeTruthy();
+  });
 });
