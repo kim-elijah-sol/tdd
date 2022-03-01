@@ -133,6 +133,11 @@ describe.each([
 // 모든 테스트 케이스를 테스트하던 중 하나의 테스트 케이스에서 문제가 생긴 경우
 // describe.only 혹은 test.only 를 사용해주면 해당 테스트 케이스만 테스트해줍니다.
 // .only가 여러 개 쓰인 경우 .only가 붙은 모든 함수를 실행시킵니다.
+
+/* ===========
+
+   ONLY COMMENTED OUT
+
 describe.only("📁@function/sum.only", () => {
   test("@sum.only : (1, 2) => 3", () => {
     expect(sum(1, 2)).toBe(3);
@@ -145,4 +150,23 @@ describe.only("📁@function/sum.only", () => {
 
 test.only("@function/sum.only : (2, 3) => 4", () => {
   expect(sum(2, 3)).toBe(4);
+});
+
+*/
+
+// .skip
+// .skip은 .only와 반대로 동작합니다.
+// .skip이 붙은 describe 혹은 test는 jest에서 제외하고 테스트를 실행시킵니다.
+describe.skip("📁@function/sum.skip", () => {
+  test("@sum.skip : (1, 1) => 2", () => {
+    expect(sum(1, 1)).toBe(2);
+  });
+
+  test("@sum.skip : (2, 2) => 4", () => {
+    expect(sum(2, 2)).toBe(4);
+  });
+});
+
+test.skip("@function/sum.skip : (2, 3) => 5", () => {
+  expect(sum(2, 3)).toBe(5);
 });
