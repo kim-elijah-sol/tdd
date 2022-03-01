@@ -188,11 +188,6 @@ test.skip("@function/sum.skip : (2, 3) => 5", () => {
   expect(sum(2, 3)).toBe(5);
 });
 
-// test.todo
-// 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
-// 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("Be a Good Developer");
-
 // expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
 
 // matcher.toBe(x) : String , Number와 같은 기본형 값의 "매칭"을 확인할 때 사용합니다.
@@ -231,3 +226,8 @@ test("@function/returnError", async () => {
 test("@function/returnError", async () => {
   await expect(returnError()).rejects.not.toThrow("success");
 });
+
+// test.todo
+// 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
+// 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
+test.todo("#9 , tohavebeencalled");
