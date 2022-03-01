@@ -17,3 +17,11 @@ export const temperature = {
     return temperature.getC(f) === c && temperature.getF(c) === f;
   },
 };
+
+export async function returnZeroPromise() {
+  return await Promise.resolve(0);
+}
+
+export async function returnError() {
+  return await Promise.reject(new Error("error"));
+}

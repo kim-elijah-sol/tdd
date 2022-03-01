@@ -1,4 +1,10 @@
-import { sum, isNumber, temperature } from "../../shared/function";
+import {
+  sum,
+  isNumber,
+  temperature,
+  returnZeroPromise,
+  returnError,
+} from "../../shared/function";
 
 // 호출 시점의 날짜를 반환해주는 함수
 function getDate() {
@@ -187,10 +193,7 @@ test.skip("@function/sum.skip : (2, 3) => 5", () => {
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
 test.todo("Be a Good Developer");
 
-/**
- * TEST CASES
- * expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
- */
+// expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
 
 // matcher.toBe(x) : String , Number와 같은 기본형 값의 "매칭"을 확인할 때 사용합니다.
 test("@function/sum", () => {
@@ -200,4 +203,31 @@ test("@function/sum", () => {
 // matcher.toBeTruthy() : "matcher"의 "검증 대상" 값이 True인지 확인할 때 사용합니다.
 test("@function/isNumber", () => {
   expect(isNumber("13.25")).toBeTruthy();
+});
+
+// matcher.not : "검증 대상"과 "기대 값"의 matching을 부정합니다.
+test("@function/isNumber.not", () => {
+  expect(isNumber("abs")).not.toBeTruthy();
+});
+
+// matcher.resolves : "검증 대상"의 결과 값이 Promise 형태라면 이를 기다립니다.
+// 만약 resolve되지 않고 reject되었다면 해당 테스트는 실패합니다.
+test("@function/returnZeroPromise", async () => {
+  await expect(returnZeroPromise()).resolves.toBe(0);
+});
+
+// matcher.rejects : "검증 대상"의 결과 값이 Reject된 Promise 형태라면 이를 기다립니다.
+// 만약 reject되지 않고 resolve되었다면 해당 테스트는 실패합니다.
+// matcher.toThrow(error?) : "검증 대상"이 Error를 반환하였는지 확인합니다.
+// error? : 인자를 넘겨주게 되면 throw 된 Error 데이터의 "매칭" 또한 검증합니다.
+test("@function/returnError", async () => {
+  await expect(returnError()).rejects.toThrow();
+});
+
+test("@function/returnError", async () => {
+  await expect(returnError()).rejects.toThrow("error");
+});
+
+test("@function/returnError", async () => {
+  await expect(returnError()).rejects.not.toThrow("success");
 });
