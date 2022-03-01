@@ -59,21 +59,6 @@ beforeEach(() => {
   beforeEachCallback();
 });
 
-/**
- * TEST CASES
- * expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
- */
-
-// matcher.toBe(x) : String , Number와 같은 기본형 값의 "매칭"을 확인할 때 사용합니다.
-test("@function/sum", () => {
-  expect(sum(3, 5)).toBe(8);
-});
-
-// matcher.toBeTruthy() : "matcher"의 "검증 대상" 값이 True인지 확인할 때 사용합니다.
-test("@function/isNumber", () => {
-  expect(isNumber("13.25")).toBeTruthy();
-});
-
 // describe : 여러 테스트를 그룹화하는 "Block"을 생성합니다.
 // describe 내부에 테스트 계층이 존재하는 경우 중첩으로도 사용 가능합니다.
 describe("📁@function/temperature", () => {
@@ -90,7 +75,7 @@ describe("📁@function/temperature", () => {
   });
 });
 
-// describe.each(table)(name, fn, timeout) : 동일한 테스트를 서로 다른 데이터로 테스트 할 때 사용할 수 있습니다.
+// .each(table)(name, fn, timeout) : 동일한 테스트를 서로 다른 데이터로 테스트 할 때 사용할 수 있습니다.
 // table : 각 행마다 함수로 전달된 인수들의 배열입니다.
 /* name : 테스트의 제목을 입력할 수 있고 , C언어의 printf 함수처럼 매개변수를 제목에 삽입 가능합니다.
  *        %p : Pretty Format
@@ -109,11 +94,14 @@ describe.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 2, 4],
-])("🎠@function/sum.each For Array #%# : (%i, %i) => %i", (a, b, expected) => {
-  test(`@sum.each/(${a}, ${b}) => ${expected}`, () => {
-    expect(sum(a, b)).toBe(expected);
-  });
-});
+])(
+  "🎠@function/sum.each [describe] For Array #%# : (%i, %i) => %i",
+  (a, b, expected) => {
+    test(`@sum.each/(${a}, ${b}) => ${expected}`, () => {
+      expect(sum(a, b)).toBe(expected);
+    });
+  }
+);
 
 // describe.each.table Object
 describe.each([
@@ -121,11 +109,34 @@ describe.each([
   { a: 1, b: 2, expected: 3 },
   { a: 2, b: 2, expected: 4 },
 ])(
-  "🎠@function/sum.each For Object #$# : ($a, $b) => $expected",
+  "🎠@function/sum.each [describe] For Object #$# : ($a, $b) => $expected",
   ({ a, b, expected }) => {
     test(`@sum.each/(${a}, ${b}) => ${expected}`, () => {
       expect(sum(a, b)).toBe(expected);
     });
+  }
+);
+
+test.each([
+  [1, 1, 2],
+  [1, 2, 3],
+  [2, 2, 4],
+])(
+  "🎠@function/sum.each [test] For Array #%# : (%i, %i) => %i",
+  (a, b, expected) => {
+    expect(sum(a, b)).toBe(expected);
+  }
+);
+
+// test.each.table Object
+test.each([
+  { a: 1, b: 1, expected: 2 },
+  { a: 1, b: 2, expected: 3 },
+  { a: 2, b: 2, expected: 4 },
+])(
+  "🎠@function/sum.each [test] For Object #$# : ($a, $b) => $expected",
+  ({ a, b, expected }) => {
+    expect(sum(a, b)).toBe(expected);
   }
 );
 
@@ -169,4 +180,24 @@ describe.skip("📁@function/sum.skip", () => {
 
 test.skip("@function/sum.skip : (2, 3) => 5", () => {
   expect(sum(2, 3)).toBe(5);
+});
+
+// test.todo
+// 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
+// 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
+test.todo("Be a Good Developer");
+
+/**
+ * TEST CASES
+ * expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
+ */
+
+// matcher.toBe(x) : String , Number와 같은 기본형 값의 "매칭"을 확인할 때 사용합니다.
+test("@function/sum", () => {
+  expect(sum(3, 5)).toBe(8);
+});
+
+// matcher.toBeTruthy() : "matcher"의 "검증 대상" 값이 True인지 확인할 때 사용합니다.
+test("@function/isNumber", () => {
+  expect(isNumber("13.25")).toBeTruthy();
 });
