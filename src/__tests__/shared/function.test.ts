@@ -196,13 +196,52 @@ test("@function/sum", () => {
 });
 
 // matcher.toBeTruthy() : "matcher"의 "검증 대상" 값이 True인지 확인할 때 사용합니다.
-test("@function/isNumber", () => {
+//                        if 문이 true로 통과하는 모든 값을 허용합니다.
+test("@function/isNumber : Truthy", () => {
   expect(isNumber("13.25")).toBeTruthy();
+  expect("true").toBeTruthy();
+  expect(1).toBeTruthy();
 });
 
 // matcher.not : "검증 대상"과 "기대 값"의 matching을 부정합니다.
-test("@function/isNumber.not", () => {
+test("@function/isNumber.not : Truthy", () => {
   expect(isNumber("abs")).not.toBeTruthy();
+});
+
+// matcher.toBeFalsy() : "matcher"의 "검증 대상" 값이 False인지 확인할 때 사용합니다.
+//                        if 문이 false로 통과하는 모든 값을 허용합니다.
+test("@function/isNumber : Falsy", () => {
+  expect(null).toBeFalsy();
+  expect(undefined).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(isNumber("abs")).toBeFalsy();
+});
+
+test("@function/isNumber.not : Falsy", () => {
+  expect(isNumber(13.25)).not.toBeFalsy();
+});
+
+// matcher.toContain(item) : "matcher"의 "검증 대상" 내 "기대 값" 포함되어 있는지 확인할 때 사용합니다.
+//                           값 존재 여부는 === (strict equality check) 를 사용하여 타입 매칭도 확인합니다.
+//                           Array.prototype.includes 와 동일한 검사입니다.
+test("@jest/toContain", () => {
+  expect(["a", "b", "c"]).toContain("a");
+  expect(["1", "b", "c"]).not.toContain(1);
+  expect("a b c").toContain("a");
+});
+
+// matcher.toEqual(value) : "matcher"의 "검증 대상" 과 "기대 값"의 Deep Equality checking 을 통해
+//                          두 Object가 완벽히 일치하는지 검사합니다.
+//                          Object.is 보다 더 엄격한 검사입니다.
+test.only("@jest/toEqual", () => {
+  expect("1").toEqual("1");
+  expect(1).not.toEqual("1");
+  expect([1, 2, 3]).toEqual([1, 2, 3]);
+  expect([1, 2, 3]).not.toEqual([1, 2, "3"]);
+  expect([1, 2, 3]).not.toEqual([1, 3, 2]);
+  expect({ a: 1, b: 2 }).toEqual({ a: 1, b: 2 });
+  expect({ a: 1, b: 2 }).not.toEqual({ a: 1, b: "2" });
+  expect({ a: 1, b: 2 }).toEqual({ b: 2, a: 1 });
 });
 
 // matcher.resolves : "검증 대상"의 결과 값이 Promise 형태라면 이를 기다립니다.
@@ -230,4 +269,4 @@ test("@function/returnError", async () => {
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("#9 , tohavebeencalled");
+test.todo("#10 , toHaveBeenCalled()");
