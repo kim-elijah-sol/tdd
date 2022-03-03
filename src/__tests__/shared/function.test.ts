@@ -4,6 +4,8 @@ import {
   temperature,
   returnZeroPromise,
   returnError,
+  eatYasick,
+  eatYasickEach,
 } from "../../shared/function";
 
 // 호출 시점의 날짜를 반환해주는 함수
@@ -233,7 +235,7 @@ test("@jest/toContain", () => {
 // matcher.toEqual(value) : "matcher"의 "검증 대상" 과 "기대 값"의 Deep Equality checking 을 통해
 //                          두 Object가 완벽히 일치하는지 검사합니다.
 //                          Object.is 보다 더 엄격한 검사입니다.
-test.only("@jest/toEqual", () => {
+test("@jest/toEqual", () => {
   expect("1").toEqual("1");
   expect(1).not.toEqual("1");
   expect([1, 2, 3]).toEqual([1, 2, 3]);
@@ -264,6 +266,52 @@ test("@function/returnError", async () => {
 
 test("@function/returnError", async () => {
   await expect(returnError()).rejects.not.toThrow("success");
+});
+
+// matcher.toHaveBeenCalled : "모의 함수"가 실행되는지 여부를 확인합니다.
+describe("📁@jest/toHaveBeenCalled", () => {
+  test("True", () => {
+    const callback = jest.fn();
+
+    eatYasick("chicken", callback);
+
+    expect(callback).toHaveBeenCalled();
+  });
+
+  test("False : Not", () => {
+    const callback = jest.fn();
+
+    eatYasick("noodle", callback);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
+});
+
+// matcher.toHaveBeenCalledTimes(number) : "모의 함수"가 몇 번 실행되었는지 확인합니다.
+describe("📁@jest/toHaveBeenCalledTimes", () => {
+  test("Once", () => {
+    const callback = jest.fn();
+
+    eatYasickEach(["chicken", "noodle"], callback);
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  test("Never", () => {
+    const callback = jest.fn();
+
+    eatYasickEach(["noodle"], callback);
+
+    expect(callback).toHaveBeenCalledTimes(0);
+  });
+
+  test("Twice", () => {
+    const callback = jest.fn();
+
+    eatYasickEach(["chicken", "pizza"], callback);
+
+    expect(callback).toHaveBeenCalledTimes(2);
+  });
 });
 
 // test.todo

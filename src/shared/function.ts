@@ -25,3 +25,17 @@ export async function returnZeroPromise() {
 export async function returnError() {
   return await Promise.reject(new Error("error"));
 }
+
+export function eatYasick(menu: string, callback: Function) {
+  if (menu !== "noodle") {
+    callback();
+  }
+}
+
+export function eatYasickEach(menus: Array<string>, callback: Function) {
+  for (const menu of menus) {
+    if (menu !== "noodle") {
+      callback();
+    }
+  }
+}
