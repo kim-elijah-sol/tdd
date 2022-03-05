@@ -314,6 +314,17 @@ describe("📁@jest/toHaveBeenCalledTimes", () => {
   });
 });
 
+// matcher.toReturnWith : "모의 함수"가 "검증 대상"을 반환하는지 검사합니다.
+test("@jest/toReturnWith", () => {
+  const sol = { name: "kim-elijah-sol" };
+
+  const getPeople = jest.fn((people) => people.name);
+
+  getPeople(sol);
+
+  expect(getPeople).toReturnWith("kim-elijah-sol");
+});
+
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
