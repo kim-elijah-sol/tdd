@@ -314,7 +314,7 @@ describe("📁@jest/toHaveBeenCalledTimes", () => {
   });
 });
 
-// matcher.toReturnWith : "모의 함수"가 "검증 대상"을 반환하는지 검사합니다.
+// matcher.toReturnWith : "모의 함수"가 "기대 값"을 반환하는지 검사합니다.
 test("@jest/toReturnWith", () => {
   const sol = { name: "kim-elijah-sol" };
 
@@ -325,7 +325,7 @@ test("@jest/toReturnWith", () => {
   expect(getPeople).toReturnWith("kim-elijah-sol");
 });
 
-// matcher.nthReturnedWith : "모의 함수가" n번째 실행해서 반환한 값이 "검증 대상"과 일치한지 검사합니다.
+// matcher.nthReturnedWith : "모의 함수가" n번째 실행해서 반환한 값이 "기대 값"과 일치한지 검사합니다.
 test("@jest/nthReturnedWith", () => {
   const sol1 = { name: "kim-elijah-sol" };
   const sol2 = { name: "sol.tsx" };
@@ -337,6 +337,13 @@ test("@jest/nthReturnedWith", () => {
 
   expect(getPeople).nthReturnedWith(1, "kim-elijah-sol");
   expect(getPeople).nthReturnedWith(2, "sol.tsx");
+});
+
+// matcher.toHaveLength : "검증 대상"의 "길이"가 "기대 값"과 일치한지 검사합니다.
+test("@jest/toHaveLength", () => {
+  expect([1, 2, 3]).toHaveLength(3);
+  expect("sol").toHaveLength(3);
+  expect("").not.toHaveLength(1);
 });
 
 // test.todo
