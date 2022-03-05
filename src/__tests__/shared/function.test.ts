@@ -325,6 +325,20 @@ test("@jest/toReturnWith", () => {
   expect(getPeople).toReturnWith("kim-elijah-sol");
 });
 
+// matcher.nthReturnedWith : "모의 함수가" n번째 실행해서 반환한 값이 "검증 대상"과 일치한지 검사합니다.
+test("@jest/nthReturnedWith", () => {
+  const sol1 = { name: "kim-elijah-sol" };
+  const sol2 = { name: "sol.tsx" };
+
+  const getPeople = jest.fn((people) => people.name);
+
+  getPeople(sol1);
+  getPeople(sol2);
+
+  expect(getPeople).nthReturnedWith(1, "kim-elijah-sol");
+  expect(getPeople).nthReturnedWith(2, "sol.tsx");
+});
+
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
