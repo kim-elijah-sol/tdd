@@ -349,4 +349,4 @@ test("@jest/toHaveLength", () => {
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("#11 , toReturnWith(value)");
+test.todo("#13 , toHaveProperty(keyPath, value?)");
