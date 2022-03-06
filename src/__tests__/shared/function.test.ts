@@ -190,7 +190,7 @@ test.skip("@function/sum.skip : (2, 3) => 5", () => {
   expect(sum(2, 3)).toBe(5);
 });
 
-// expect : "검증 대상"을 인자로 넘기면 "기대 값"과 매칭할 수 있는 "matcher"를 제공합니다.
+// expect : "검증 대상"을 인자로 넘기면 "기댓값"과 매칭할 수 있는 "matcher"를 제공합니다.
 
 // matcher.toBe(x) : String , Number와 같은 기본형 값의 "매칭"을 확인할 때 사용합니다.
 test("@function/sum", () => {
@@ -205,7 +205,7 @@ test("@function/isNumber : Truthy", () => {
   expect(1).toBeTruthy();
 });
 
-// matcher.not : "검증 대상"과 "기대 값"의 matching을 부정합니다.
+// matcher.not : "검증 대상"과 "기댓값"의 matching을 부정합니다.
 test("@function/isNumber.not : Truthy", () => {
   expect(isNumber("abs")).not.toBeTruthy();
 });
@@ -223,7 +223,7 @@ test("@function/isNumber.not : Falsy", () => {
   expect(isNumber(13.25)).not.toBeFalsy();
 });
 
-// matcher.toContain(item) : "matcher"의 "검증 대상" 내 "기대 값" 포함되어 있는지 확인할 때 사용합니다.
+// matcher.toContain(item) : "matcher"의 "검증 대상" 내 "기댓값" 포함되어 있는지 확인할 때 사용합니다.
 //                           값 존재 여부는 === (strict equality check) 를 사용하여 타입 매칭도 확인합니다.
 //                           Array.prototype.includes 와 동일한 검사입니다.
 test("@jest/toContain", () => {
@@ -232,7 +232,7 @@ test("@jest/toContain", () => {
   expect("a b c").toContain("a");
 });
 
-// matcher.toEqual(value) : "matcher"의 "검증 대상" 과 "기대 값"의 Deep Equality checking 을 통해
+// matcher.toEqual(value) : "matcher"의 "검증 대상" 과 "기댓값"의 Deep Equality checking 을 통해
 //                          두 Object가 완벽히 일치하는지 검사합니다.
 //                          Object.is 보다 더 엄격한 검사입니다.
 test("@jest/toEqual", () => {
@@ -314,7 +314,7 @@ describe("📁@jest/toHaveBeenCalledTimes", () => {
   });
 });
 
-// matcher.toReturnWith : "모의 함수"가 "기대 값"을 반환하는지 검사합니다.
+// matcher.toReturnWith : "모의 함수"가 "기댓값"을 반환하는지 검사합니다.
 test("@jest/toReturnWith", () => {
   const sol = { name: "kim-elijah-sol" };
 
@@ -325,7 +325,7 @@ test("@jest/toReturnWith", () => {
   expect(getPeople).toReturnWith("kim-elijah-sol");
 });
 
-// matcher.nthReturnedWith : "모의 함수가" n번째 실행해서 반환한 값이 "기대 값"과 일치한지 검사합니다.
+// matcher.nthReturnedWith : "모의 함수가" n번째 실행해서 반환한 값이 "기댓값"과 일치한지 검사합니다.
 test("@jest/nthReturnedWith", () => {
   const sol1 = { name: "kim-elijah-sol" };
   const sol2 = { name: "sol.tsx" };
@@ -339,7 +339,7 @@ test("@jest/nthReturnedWith", () => {
   expect(getPeople).nthReturnedWith(2, "sol.tsx");
 });
 
-// matcher.toHaveLength : "검증 대상"의 "길이"가 "기대 값"과 일치한지 검사합니다.
+// matcher.toHaveLength : "검증 대상"의 "길이"가 "기댓값"과 일치한지 검사합니다.
 test("@jest/toHaveLength", () => {
   expect([1, 2, 3]).toHaveLength(3);
   expect("sol").toHaveLength(3);
@@ -398,7 +398,35 @@ test("@jest/toHaveProperty", () => {
   );
 });
 
+// matcher.toBeGreaterThan : "검증 대상"이 "기댓값"보다 큰지 확인합니다. ( 초과 )
+test("@jest/toBeGreaterThan", () => {
+  expect(10).toBeGreaterThan(9);
+  expect(10).not.toBeGreaterThan(10);
+  expect(10).not.toBeGreaterThan(11);
+});
+
+// matcher.toBeGreaterThanOrEqual : "검증 대상"이 "기댓값"보다 크거나 같은지 확인합니다. ( 이상 )
+test("@jest/toBeGreaterThanOrEqual", () => {
+  expect(10).toBeGreaterThanOrEqual(9);
+  expect(10).toBeGreaterThanOrEqual(10);
+  expect(10).not.toBeGreaterThanOrEqual(11);
+});
+
+// matcher.toBeLessThan : "검증 대상"이 "기댓값"보다 작은지 확인합니다. ( 미만 )
+test("@jest/toBeLessThan", () => {
+  expect(10).toBeLessThan(11);
+  expect(10).not.toBeLessThan(10);
+  expect(10).not.toBeLessThan(9);
+});
+
+// matcher.toBeLessThanOrEqual : "검증 대상"이 "기댓값"보다 작거나 같은지 확인합니다. ( 이하 )
+test("@jest/toBeLessThanOrEqual", () => {
+  expect(10).toBeLessThanOrEqual(11);
+  expect(10).toBeLessThanOrEqual(10);
+  expect(10).not.toBeLessThanOrEqual(9);
+});
+
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("#13 , Greater , Less");
+test.todo("#15 , toBeInstanceOf");
