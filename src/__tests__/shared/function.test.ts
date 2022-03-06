@@ -426,7 +426,16 @@ test("@jest/toBeLessThanOrEqual", () => {
   expect(10).not.toBeLessThanOrEqual(9);
 });
 
+// matcher.toBeInstanceOf : "검증 대상"의 인스턴스가 "기댓값"과 동일한지 확안합니다.
+test("@jest/toBeInstanceOf", () => {
+  class Sol {}
+
+  expect(new Sol()).toBeInstanceOf(Sol);
+  expect(isNumber).toBeInstanceOf(Function);
+  expect(new Sol()).not.toBeInstanceOf(Function);
+});
+
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("#15 , toBeInstanceOf");
+test.todo("End : #16 , UI Test");
