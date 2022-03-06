@@ -346,7 +346,59 @@ test("@jest/toHaveLength", () => {
   expect("").not.toHaveLength(1);
 });
 
+// matcher.toHaveProperty(keyPath, value?)
+// keyPath : "검증 대상"에 "keyPath"가 존재하는지 확인합니다.
+//            toHaveProperty는 "점 표기법"을 허용하여 깊은 탐색또한 가능합니다.
+// value? : 추가적으로 "검증 대상"의 "keyPath"가 가지는 값이 "value?"와 일치하는지 확인할 수 있습니다.
+test("@jest/toHaveProperty", () => {
+  const developer = {
+    name: "kim-elijah-sol",
+    instagram: "@sol.tsx",
+    github: "https://github.com/kim-elijah-sol",
+    frontEnd: {
+      react: "Love",
+      vue: "Like",
+      svelte: "Look Forward To",
+    },
+    backEnd: {
+      js: {
+        express: "Love",
+        nestJs: "Look Forward To",
+      },
+      php: {
+        vanilla: "Like",
+        laravel: "Hate",
+      },
+    },
+    language: ["html", "css", "javaScript", "typeScript", "php"],
+  };
+
+  expect(developer).toHaveProperty("name");
+  expect(developer).not.toHaveProperty("twitter");
+
+  expect(developer).toHaveProperty("instagram", "@sol.tsx");
+  expect(developer).not.toHaveProperty("github", "https://github.com");
+
+  expect(developer).toHaveProperty("frontEnd.react");
+  expect(developer).not.toHaveProperty("frontEnd.angular");
+
+  expect(developer).toHaveProperty("frontEnd.svelte", "Look Forward To");
+  expect(developer).not.toHaveProperty("backEnd.js.nestJs", "Like");
+
+  expect(developer).toHaveProperty("language", [
+    "html",
+    "css",
+    "javaScript",
+    "typeScript",
+    "php",
+  ]);
+  expect(developer).not.toHaveProperty(
+    "language",
+    "['html', 'css', 'javaScript', 'typeScript' , 'php']"
+  );
+});
+
 // test.todo
 // 테스트 작성 중 다음 계획을 작성할 때 사용됩니다.
 // 해당 테스트는 요약 출력에서 "강조 표시"되어 출력됩니다.
-test.todo("#13 , toHaveProperty(keyPath, value?)");
+test.todo("#13 , Greater , Less");
